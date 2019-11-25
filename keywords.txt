@@ -1,0 +1,10 @@
+CSDisplayDriver		KEYWORD1
+
+sendtoCS1694		KEYWORD2
+updateDisplay		KEYWORD2
+convertVar		KEYWORD2
+dispNum			KEYWORD2
+clearDisplay		KEYWORD2
+readButtons		KEYWORD2
+setBrightness		KEYWORD2
+displaySetup		KEYWORD2
