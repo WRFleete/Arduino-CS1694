@@ -8,7 +8,15 @@ first library I have written to some degree
 uses the 3 buttons on my board to change digits and scroll through the segment data for numbers and letters
 
 this test program just displays the millis() on the LED display (or the first 6 MSD if larger than 6 digits)
-none of the push buttons will respond
+none of the push buttons will respond.
+
+digit 0, rightmost digit
+digit 5, leftmost digit
+
+digit 6: bit: 5  4    3  2  1     0
+              :1 REP ALL :2 A-B  MP3
+digit 7: bit: 5    4    3    2   1   0
+              VCD DVD Pause play CD TRK 
 
 */
 byte editDigit = 0;
