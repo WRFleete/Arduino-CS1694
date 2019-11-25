@@ -6,27 +6,32 @@ used with CS1694 LED driver chips found in some cheap dvd players. this sketch w
 first library I have written to some degree
 
 uses the 3 buttons on my board to change digits and scroll through the segment data for numbers and letters
+digit 0, rightmost digit
+digit 5, leftmost digit
 
-
+digit 6: bit: 5  4    3  2  1     0
+              :1 REP ALL :2 A-B  MP3
+digit 7: bit: 5    4    3    2   1   0
+              VCD DVD Pause play CD TRK 
 
 */
 byte editDigit = 0;
 byte digitVal = 0;
-CSDisplayDriver CSDisplayDriver(12,11,8);
+CSDisplayDriver CSDisplayDriver(12,11,8); //data,clock, strobe pins
 void setup() {
 
-CSDisplayDriver.displaySetup(true);
-  CSDisplayDriver.setBrightness(7);
-  CSDisplayDriver.clearDisplay();
+CSDisplayDriver.displaySetup(true); //my display needs 7x10 mode, set false if your display is 6x11 
+  CSDisplayDriver.setBrightness(7); //set to full brightness
+  CSDisplayDriver.clearDisplay(); //clear any garbage or old data
   // put your setup code here, to run once:
 
 }
 
 void loop() {
   // put your main code here, to run repeatedly:
- byte inputButtons = CSDisplayDriver.readButtons();//read the button matrix
-//convertVar(millis()); // convert a variable to 7 segment numbers for the display, takes unsigned long, shows first 6 MSD 
-if(bitRead(inputButtons,0)){
+ byte inputButtons = CSDisplayDriver.readButtons();//read the button matrix, returns a byte, low 3 bits 
+
+if(bitRead(inputButtons,0)){ //reading which buttons are pressed 
   delay(60);
    digitVal ++;
   if(digitVal > 36){digitVal = 0;}
@@ -44,13 +49,10 @@ if(bitRead(inputButtons,2)){
   delay(250);
   editDigit --;
   if(editDigit > 5){editDigit = 5;}}
-   //dispNum(brightness,7); //turn on the lamps in "digit" 7 counting in binary 0 - 7
-//dispNum(127,6); //turn on all the lamps 
-//dispNum(127,7); 
 
   switch(editDigit){
     case 0:
-    CSDisplayDriver.dispNum(1,6);
+    CSDisplayDriver.dispNum(1,6); //show one of the icon lamps to indicate which digit you're editing
      CSDisplayDriver.dispNum(0,7);
     break;
     case 1:
