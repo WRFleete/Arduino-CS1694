@@ -213,7 +213,7 @@ void  CSDisplayDriver::setBrightness (byte brightLevel){
 void  CSDisplayDriver::displaySetup(bool mode){ //mode: 1=7 grids of 10 segments, 0=6grids of 11 segs
         if(mode){
          CSDisplayDriver::sendtoCS1694(0x03);
-        }else{ sendtoCS1694(0x02);}
+        }else{ CSDisplayDriver::sendtoCS1694(0x02);}
            digitalWrite(_StrobePin,HIGH);
       CSDisplayDriver::sendtoCS1694(0x44); //set to write memory mode
      
