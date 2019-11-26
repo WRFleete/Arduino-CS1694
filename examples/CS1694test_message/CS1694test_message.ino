@@ -29,7 +29,7 @@ void loop() {
 if(bitRead(inputButtons,0)){
   delay(60);
    digitVal ++;
-  if(digitVal > 36){digitVal = 0;}
+  if(digitVal > 37){digitVal = 0;}
   CS1694.dispNum(digitVal,editDigit); 
   //setBrightness(brightness);
   }
@@ -37,7 +37,7 @@ if(bitRead(inputButtons,0)){
   if(bitRead(inputButtons,1)){
     delay(60);
  digitVal --;
-  if(digitVal > 36){digitVal = 36;}
+  if(digitVal > 37){digitVal = 37;}
   CS1694.dispNum(digitVal,editDigit); 
   }
 if(bitRead(inputButtons,2)){
