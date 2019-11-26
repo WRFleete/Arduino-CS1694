@@ -1,4 +1,5 @@
-CSDisplayDriver		KEYWORD1
+CS			KEYWORD1
+CS1694			KEYWORD1
 
 sendtoCS1694		KEYWORD2
 updateDisplay		KEYWORD2

@@ -1,4 +1,4 @@
-#include <CSDisplayDriver.h>
+#include <CS.h>
 /*
 test program for the CSDisplayDriver library written by William Fleete
 used with CS1694 LED driver chips found in some cheap dvd players. this sketch works with my particular board with
@@ -7,36 +7,29 @@ first library I have written to some degree
 
 uses the 3 buttons on my board to change digits and scroll through the segment data for numbers and letters
 
-this test program just displays the millis() on the LED display (or the first 6 MSD if larger than 6 digits)
-none of the push buttons will respond.
 
-digit 0, rightmost digit
-digit 5, leftmost digit
-
-digit 6: bit: 5  4    3  2  1     0
-              :1 REP ALL :2 A-B  MP3
-digit 7: bit: 5    4    3    2   1   0
-              VCD DVD Pause play CD TRK 
 
 */
 byte editDigit = 0;
 byte digitVal = 0;
-CSDisplayDriver CSDisplayDriver(12,11,8); //data,clock,strobe pins
+CS1694 CS1694(12,11,8);
 void setup() {
 
-CSDisplayDriver.displaySetup(true); //my display is "7x10" mode, set false if display doesnt look right ("6x11" mode)
-  CSDisplayDriver.setBrightness(7); //full brightness level
-  CSDisplayDriver.clearDisplay(); // clear the display memory
-  
+CS1694.displaySetup(true);
+  CS1694.setBrightness(7);
+  CS1694.clearDisplay();
+  // put your setup code here, to run once:
+
 }
 
 void loop() {
+  // put your main code here, to run repeatedly:
 
-CSDisplayDriver.convertVar(millis()); // convert a variable to 7 segment numbers for the display, takes unsigned long, shows first 6 MSD 
+CS1694.convertVar(millis()); // convert a variable to 7 segment numbers for the display, takes unsigned long, shows first 6 MSD 
 
    
 
-CSDisplayDriver.updateDisplay(); //refresh the display, transferring the contents of the variable array into display memory on the chip
+CS1694.updateDisplay(); //refresh the display, transferring the contents of the variable array into display memory on the chip
 
  
 }
