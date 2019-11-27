@@ -1,0 +1,32 @@
+{
+  "name": "CS1694-DisplayDriver",
+  "keywords": "Display", "CS1694", "7 Segment"
+  "description": "Arduino Library for the CS1694 LED display driver",
+  "repository":
+  {
+    "type": "git",
+    "url": "https://github.com/WRFleete/Arduino-CS1694"
+  },
+  "authors": 
+  [
+    {
+      "name": "William Fleete",
+      "email": "fleetwil@gmail.com",
+      "url": "https://github.com/WRFleete/",
+      "maintainer": true
+    },
+    {
+      "name": "William Fleete",
+      "email": "fleetwil@gmail.com"
+    }
+  ],
+  "dependencies":
+  {
+    "name": "CS1694-driver",
+    "authors": "William Fleete",
+    "frameworks": "arduino"
+  },
+  "version": "1.0",
+  "frameworks": "arduino",
+  "platforms": "*"
+}
