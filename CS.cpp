@@ -1,11 +1,11 @@
 #include "Arduino.h"
-#include "CSDisplayDriver.h"
+#include "CS.h"
 
 
 
 
 
- CSDisplayDriver::CSDisplayDriver(int dataPin,int dataClock,int StrobePin){ 
+ CS1694::CS1694(int dataPin,int dataClock,int StrobePin){ 
 	pinMode(dataClock, OUTPUT);
 	 _dataClock = dataClock;
 	digitalWrite(_dataClock,HIGH);
@@ -19,22 +19,22 @@ _dataPin = dataPin;
         }
 
 
-void CSDisplayDriver::sendtoCS1694(byte inputVar){ //routine for sending commands to the CS1694 raw
+void  CS1694::sendtoCS1694(byte inputVar){ //routine for sending commands to the CS1694 raw
      digitalWrite(_StrobePin,LOW);
     digitalWrite(_dataClock,LOW);
     shiftOut(_dataPin,_dataClock, LSBFIRST,inputVar);
 
   
   }
-void  CSDisplayDriver::updateDisplay(){
+void    CS1694::updateDisplay(){
 for(unsigned int i = 0; i < 14; i++){  
   byte address = 0xC0 | i; 
- CSDisplayDriver::sendtoCS1694(address);
+   CS1694::sendtoCS1694(address);
   delay(1);
- CSDisplayDriver::sendtoCS1694(displayMem[i]);
+   CS1694::sendtoCS1694(displayMem[i]);
 digitalWrite(_StrobePin,HIGH);}}
 
-  void  CSDisplayDriver::convertVar(unsigned long inputVar){
+  void    CS1694::convertVar(unsigned long inputVar){
     if (inputVar >= 1000000){
       do{inputVar /= 10;}while(inputVar >= 1000000); //automatically fit variable into 6 digits
       
@@ -45,21 +45,21 @@ hunds = (inputVar /100) %10;
 thous = (inputVar /1000) %10;
 tenthou = (inputVar /10000) %10;
 hundthou = (inputVar /100000) %10;
- CSDisplayDriver::dispNum(units,0); //display 0-9
+  CS1694::dispNum(units,0); //display 0-9
 if(tens >= 1 || inputVar >=100){
- CSDisplayDriver::dispNum(tens,1);}else{ CSDisplayDriver::dispNum(36,1);} //if further digits are zero, blank leading zeros unless the input value is more than place the zero is in 
+   CS1694::dispNum(tens,1);}else{   CS1694::dispNum(36,1);} //if further digits are zero, blank leading zeros unless the input value is more than place the zero is in 
 if(hunds >=1 || inputVar >=1000){
- CSDisplayDriver::dispNum(hunds,2);}else{ CSDisplayDriver::dispNum(36,2);}  
+   CS1694::dispNum(hunds,2);}else{   CS1694::dispNum(36,2);}  
 if(thous >= 1 || inputVar >=10000){
-  CSDisplayDriver::dispNum(thous,3);}else{ CSDisplayDriver::dispNum(36,3);}
+    CS1694::dispNum(thous,3);}else{   CS1694::dispNum(36,3);}
  if(tenthou >= 1 || inputVar >= 100000){ 
- CSDisplayDriver::dispNum(tenthou, 4);}else{ CSDisplayDriver::dispNum(36,4);} 
+   CS1694::dispNum(tenthou, 4);}else{   CS1694::dispNum(36,4);} 
 if(hundthou >= 1){
- CSDisplayDriver::dispNum(hundthou, 5);}else{ CSDisplayDriver::dispNum(36,5);} 
+   CS1694::dispNum(hundthou, 5);}else{   CS1694::dispNum(36,5);} 
 
     }
 
-  void  CSDisplayDriver::dispNum(byte segDataIN, byte dispDigit){ //converts a number 0 - 36 into segment data for the CS1694
+  void    CS1694::dispNum(byte segDataIN, byte dispDigit){ //converts a number 0 - 36 into segment data for the CS1694
 
 byte segmentData = _segData[segDataIN];
     bool aSeg = bitRead(segmentData,0);
@@ -159,12 +159,12 @@ byte segmentData = _segData[segDataIN];
     
     
     }
-void  CSDisplayDriver::clearDisplay(){ //fills the display with binary 0 (all segments off)
+void    CS1694::clearDisplay(){ //fills the display with binary 0 (all segments off)
   
   for(byte i = 0; i < 14; i++){  
   byte address = 0xC0 | i; 
- CSDisplayDriver::sendtoCS1694(address);
- CSDisplayDriver::sendtoCS1694(0);
+   CS1694::sendtoCS1694(address);
+   CS1694::sendtoCS1694(0);
 digitalWrite(_StrobePin,HIGH);
   //
  
@@ -174,13 +174,13 @@ digitalWrite(_StrobePin,HIGH);
 }
 }
 
-byte  CSDisplayDriver::readButtons(){
+byte    CS1694::readButtons(){
   
   //sendtoCS1694(0xC0);
-   CSDisplayDriver::sendtoCS1694(0x46); //command to set chip to read key matrix
+     CS1694::sendtoCS1694(0x46); //command to set chip to read key matrix
   digitalWrite(_dataClock,HIGH);
    //digitalWrite(_StrobePin,HIGH);
-  delay(60);
+  delay(1);
    //digitalWrite(Strobe,LOW);
    //digitalWrite(DataClock,LOW);
 pinMode(_dataPin,INPUT); //shift in apparently doesnt automatically set the datapin to input, manually had to do it
@@ -203,19 +203,19 @@ byte buttonData3 = shiftIn(_dataPin,_dataClock,LSBFIRST);
   return outputButtonData;
   
   }
-void  CSDisplayDriver::setBrightness (byte brightLevel){
+void    CS1694::setBrightness (byte brightLevel){
   if(brightLevel > 7){brightLevel = 7;}//cap brightness to 7 if invalid or higher value is used
   byte brightnesslevel = 0x88 | brightLevel; //command to set the pulse width (brightness) of the CS1694
-      CSDisplayDriver::sendtoCS1694(brightnesslevel);
+        CS1694::sendtoCS1694(brightnesslevel);
       digitalWrite(_StrobePin,HIGH);  
       }
 
-void  CSDisplayDriver::displaySetup(bool mode){ //mode: 1=7 grids of 10 segments, 0=6grids of 11 segs
+void    CS1694::displaySetup(bool mode){ //mode: 1=7 grids of 10 segments, 0=6grids of 11 segs
         if(mode){
-         CSDisplayDriver::sendtoCS1694(0x03);
-        }else{ CSDisplayDriver::sendtoCS1694(0x02);}
+           CS1694::sendtoCS1694(0x03);
+        }else{CS1694::sendtoCS1694(0x02);}
            digitalWrite(_StrobePin,HIGH);
-      CSDisplayDriver::sendtoCS1694(0x44); //set to write memory mode
+        CS1694::sendtoCS1694(0x44); //set to write memory mode
      
         digitalWrite(_StrobePin,HIGH);
         }
