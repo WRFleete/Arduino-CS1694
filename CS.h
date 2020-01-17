@@ -50,7 +50,7 @@ digit 7: bit: 5    4    3    2   1   0
 	void clearDisplay(void);
 
 	//read the key matrix
-	byte readButtons(void);
+	unsigned long readButtons(void);
 
 	//set brightness level
 	void setBrightness ( byte brightLevel);
