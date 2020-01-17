@@ -174,7 +174,7 @@ digitalWrite(_StrobePin,HIGH);
 }
 }
 
-byte    CS1694::readButtons(){
+unsigned long    CS1694::readButtons(){
   
   //sendtoCS1694(0xC0);
      CS1694::sendtoCS1694(0x46); //command to set chip to read key matrix
@@ -200,8 +200,8 @@ byte buttonData3 = shiftIn(_dataPin,_dataClock,LSBFIRST);
         if(buttonData == 2048){bitSet(outputButtonData,0);}else{bitClear(outputButtonData,0);}
   if(buttonData == 256){bitSet(outputButtonData,2);}else{bitClear(outputButtonData,2);}
   if(buttonData == 1){bitSet(outputButtonData,1);}else{bitClear(outputButtonData,1);}
-  return outputButtonData;
-  
+  //return outputButtonData;
+  return buttonData;
   }
 void    CS1694::setBrightness (byte brightLevel){
   if(brightLevel > 7){brightLevel = 7;}//cap brightness to 7 if invalid or higher value is used
