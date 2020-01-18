@@ -53,7 +53,7 @@ byte editDigit = 0;
 byte digitVal = 0;
 CS1694 CS1694(12,11,8); //data,clock,strobe pins
 void setup() {
-
+Serial.begin(9600);
 CS1694.displaySetup(true); //set to 7x10 mode, set false for 6x11 mode
   CS1694.setBrightness(7); //full brightness, range is 0-7 higher values will be capped
   CS1694.clearDisplay(); //clear any junk off the display
@@ -70,6 +70,6 @@ CS1694.convertVar(millis()); // convert a variable to 7 segment numbers for the 
    CS1694.colon (1);
 
 CS1694.updateDisplay(); //refresh the display, transferring the contents of the variable array into display memory on the chip
-
+Serial.println(CS1694.readButtons());
  
 }
