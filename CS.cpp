@@ -43,8 +43,7 @@ digitalWrite(_StrobePin,HIGH);}}
 tens = (inputVar /10) %10;
 hunds = (inputVar /100) %10;
 thous = (inputVar /1000) %10;
-tenthou = (inputVar /10000) %10;
-hundthou = (inputVar /100000) %10;
+
   CS1694::dispNum(units,0); //display 0-9
 if(tens >= 1 || inputVar >=100){
    CS1694::dispNum(tens,1);}else{   CS1694::dispNum(36,1);} //if further digits are zero, blank leading zeros unless the input value is more than place the zero is in 
