@@ -35,8 +35,8 @@ for(unsigned int i = 0; i < 14; i++){
 digitalWrite(_StrobePin,HIGH);}}
 
   void    CS1694::convertVar(unsigned long inputVar){
-    if (inputVar >= 1000000){
-      do{inputVar /= 10;}while(inputVar >= 1000000); //automatically fit variable into 6 digits
+    if (inputVar >= 10000){
+      do{inputVar /= 10;}while(inputVar >= 10000); //automatically fit variable into 4 digits
       
       }
     units = inputVar % 10;
@@ -50,12 +50,9 @@ if(tens >= 1 || inputVar >=100){
    CS1694::dispNum(tens,1);}else{   CS1694::dispNum(36,1);} //if further digits are zero, blank leading zeros unless the input value is more than place the zero is in 
 if(hunds >=1 || inputVar >=1000){
    CS1694::dispNum(hunds,2);}else{   CS1694::dispNum(36,2);}  
-if(thous >= 1 || inputVar >=10000){
+if(thous >= 1 ){
     CS1694::dispNum(thous,3);}else{   CS1694::dispNum(36,3);}
- if(tenthou >= 1 || inputVar >= 100000){ 
-   CS1694::dispNum(tenthou, 4);}else{   CS1694::dispNum(36,4);} 
-if(hundthou >= 1){
-   CS1694::dispNum(hundthou, 5);}else{   CS1694::dispNum(36,5);} 
+ 
 
     }
 
@@ -70,54 +67,54 @@ byte segmentData = _segData[segDataIN];
     bool fSeg = bitRead(segmentData,5);
     bool gSeg = bitRead(segmentData,6);
     
-    bool lamp1 = bitRead(segDataIN,0);
+    /*bool lamp1 = bitRead(segDataIN,0);
     bool lamp2 = bitRead(segDataIN,1);
     bool lamp3 = bitRead(segDataIN,2);
     bool lamp4 = bitRead(segDataIN,3);
     bool lamp5 = bitRead(segDataIN,4);
-    bool lamp6 = bitRead(segDataIN,5);
+    bool lamp6 = bitRead(segDataIN,5);*/
     //bool lamp7 = bitRead(segDataIN,6);
     switch(dispDigit){
       case 0: //digit 1
-      bitWrite(displayMem[0],4,aSeg);
-      bitWrite(displayMem[2],4,bSeg);
+      bitWrite(displayMem[4],7,aSeg);
+      bitWrite(displayMem[5],1,bSeg);
       bitWrite(displayMem[4],4,cSeg);
-      bitWrite(displayMem[6],4,dSeg);
-      bitWrite(displayMem[8],4,eSeg);
-      bitWrite(displayMem[10],4,fSeg);
-      bitWrite(displayMem[12],4,gSeg);
+      bitWrite(displayMem[4],2,dSeg);
+      bitWrite(displayMem[4],1,eSeg);
+      bitWrite(displayMem[5],0,fSeg);
+      bitWrite(displayMem[4],6,gSeg);
       break;
 
       case 1: //digit 2
-      bitWrite(displayMem[0],3,aSeg);
-      bitWrite(displayMem[2],3,bSeg);
-      bitWrite(displayMem[4],3,cSeg);
-      bitWrite(displayMem[6],3,dSeg);
-      bitWrite(displayMem[8],3,eSeg);
-      bitWrite(displayMem[10],3,fSeg);
-      bitWrite(displayMem[12],3,gSeg);
+      bitWrite(displayMem[6],7,aSeg);
+      bitWrite(displayMem[7],1,bSeg);
+      bitWrite(displayMem[6],4,cSeg);
+      bitWrite(displayMem[6],2,dSeg);
+      bitWrite(displayMem[6],1,eSeg);
+      bitWrite(displayMem[7],0,fSeg);
+      bitWrite(displayMem[6],6,gSeg);
       break;
       case 2: //digit 3
-      bitWrite(displayMem[0],2,aSeg);
-      bitWrite(displayMem[2],2,bSeg);
-      bitWrite(displayMem[4],2,cSeg);
-      bitWrite(displayMem[6],2,dSeg);
-      bitWrite(displayMem[8],2,eSeg);
-      bitWrite(displayMem[10],2,fSeg);
-      bitWrite(displayMem[12],2,gSeg);
+      bitWrite(displayMem[10],7,aSeg);
+      bitWrite(displayMem[11],1,bSeg);
+      bitWrite(displayMem[10],4,cSeg);
+      bitWrite(displayMem[10],2,dSeg);
+      bitWrite(displayMem[10],1,eSeg);
+      bitWrite(displayMem[11],0,fSeg);
+      bitWrite(displayMem[10],6,gSeg);
       break;
       
     
     case 3: //digit 4
-      bitWrite(displayMem[0],7,aSeg);
-      bitWrite(displayMem[2],7,bSeg);
-      bitWrite(displayMem[4],7,cSeg);
-      bitWrite(displayMem[6],7,dSeg);
-      bitWrite(displayMem[8],7,eSeg);
-      bitWrite(displayMem[10],7,fSeg);
-      bitWrite(displayMem[12],7,gSeg);
+      bitWrite(displayMem[8],7,aSeg);
+      bitWrite(displayMem[9],1,bSeg);
+      bitWrite(displayMem[8],4,cSeg);
+      bitWrite(displayMem[8],2,dSeg);
+      bitWrite(displayMem[8],1,eSeg);
+      bitWrite(displayMem[9],0,fSeg);
+      bitWrite(displayMem[8],6,gSeg);
       break;
-    case 4: //digit 5
+    /*case 4: //digit 5
       bitWrite(displayMem[1],0,aSeg);
       bitWrite(displayMem[3],0,bSeg);
       bitWrite(displayMem[5],0,cSeg);
@@ -154,11 +151,28 @@ byte segmentData = _segData[segDataIN];
       bitWrite(displayMem[8],6,lamp5); //DVD
       bitWrite(displayMem[10],6,lamp6); //VCD
       //bitWrite(displayMem[12],6,lamp7); // nothing
-      break;}
+      break;
+      */}
     
     
     
     }
+
+void CS1694::LED(bool LEDstate){
+
+bitWrite(displayMem[3],0,LEDstate);
+
+
+
+
+}
+
+void CS1694::colon(bool LEDstate){
+bitWrite(displayMem[6],3,LEDstate);
+bitWrite(displayMem[10],3,LEDstate);
+	
+}
+
 void    CS1694::clearDisplay(){ //fills the display with binary 0 (all segments off)
   
   for(byte i = 0; i < 14; i++){  
