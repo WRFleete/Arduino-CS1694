@@ -74,7 +74,7 @@ byte segmentData = _segData[segDataIN];
     bool lamp6 = bitRead(segDataIN,5);*/
     //bool lamp7 = bitRead(segDataIN,6);
     switch(dispDigit){
-      case 0: //digit 1
+      case 3: //digit 4
       bitWrite(displayMem[4],7,aSeg);
       bitWrite(displayMem[5],1,bSeg);
       bitWrite(displayMem[4],4,cSeg);
@@ -84,7 +84,7 @@ byte segmentData = _segData[segDataIN];
       bitWrite(displayMem[4],6,gSeg);
       break;
 
-      case 1: //digit 2
+      case 2: //digit 3
       bitWrite(displayMem[6],7,aSeg);
       bitWrite(displayMem[7],1,bSeg);
       bitWrite(displayMem[6],4,cSeg);
@@ -93,7 +93,7 @@ byte segmentData = _segData[segDataIN];
       bitWrite(displayMem[7],0,fSeg);
       bitWrite(displayMem[6],6,gSeg);
       break;
-      case 2: //digit 3
+      case 1: //digit 2
       bitWrite(displayMem[10],7,aSeg);
       bitWrite(displayMem[11],1,bSeg);
       bitWrite(displayMem[10],4,cSeg);
@@ -104,7 +104,7 @@ byte segmentData = _segData[segDataIN];
       break;
       
     
-    case 3: //digit 4
+    case 0: //digit 1
       bitWrite(displayMem[8],7,aSeg);
       bitWrite(displayMem[9],1,bSeg);
       bitWrite(displayMem[8],4,cSeg);
