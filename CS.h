@@ -11,26 +11,56 @@ public:
 	 int dataClock;
 	 int StrobePin;
 /*
-even addresses                                    odd addresses
-0:  bit 2, 3, 4, & 7: seg A of display 3,2,1,4    1: bit 0, 1: seg A of display 5 + 6
-    bit 5, 6: MP3, TRK
-2:  seg B                                         3: seg B
-    bit 5, 6: A-B, CD
-4:  Seg C                                         5: seg C
-    bit 5, 6: colon 2 ,PLAY icon
-6:  Seg D                                         7: seg D
-    bit 5, 6: ALL,PAUSE icon
-8:  Seg E                                         9: seg E
-    bit 5, 6: REP,DVD
-A:  Seg F                                         B: seg F
-    bit 5, 6: colon 1, VCD 
-C:  Seg G                                         D: seg G
-    bit 5, 6: (nothing)
+LED
+---------
+C3 1
 
-digit 6: bit: 5  4    3  2  1     0
-              :1 REP ALL :2 A-B  MP3
-digit 7: bit: 5    4    3    2   1   0
-              VCD DVD Pause play CD TRK */
+DIG1
+---------
+C4 2	e 
+C4 4	d
+C4 16	c
+C4 64	g
+C4 128	a
+C5 1	f
+C5 2	b
+
+DIG2
+---------
+C6 2	e 
+C6 4	d
+C6 16	c
+C6 64	g
+C6 128	a
+C7 1	f
+C7 2	b
+
+DIG3
+---------
+CA 2	e 
+CA 4	d
+CA 16	c
+CA 64	g
+CA 128	a
+CB 1	f
+CB 2	b
+
+DIG4
+---------
+C8 2	e 
+C8 4	d
+C8 16	c
+C8 64	g
+C8 128	a
+C9 1	f
+C9 2	b
+
+COLON
+---------
+C6 8	 
+CA 8
+
+*/
 
  	byte displayMem[14]; 
 	CS1694(int ,int ,int);
@@ -57,6 +87,11 @@ digit 7: bit: 5    4    3    2   1   0
 
 	//set up the display pin hookup etc
 	void displaySetup(bool mode);
+	
+	//controls the LED
+	void LED(bool);
+	//turns on both colons
+	void colon(bool);
 
 private:
 
@@ -69,8 +104,7 @@ private:
 	 byte tens;
 	 byte hunds;
 	 byte thous;
-	 byte tenthou;
-	 byte hundthou; 
+
 
          
 
