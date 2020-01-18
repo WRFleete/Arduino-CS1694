@@ -9,5 +9,5 @@ clearDisplay		KEYWORD2
 readButtons		KEYWORD2
 setBrightness		KEYWORD2
 displaySetup		KEYWORD2
-LED   KEYWORD2
-colon   KEYWORD2
+LED      KEYWORD2
+colon      KEYWORD2
